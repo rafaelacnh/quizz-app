@@ -1,6 +1,6 @@
 const quizzData = [
     {
-        question: 'What is my favorit color',
+        question: 'What is my favorit color?',
         a: 'Black',
         b: 'White',
         c: 'Red',
@@ -25,24 +25,51 @@ const quizzData = [
     }
 ]
 
-const questionEl = document.getElementById('question')
-const a_text = document.getElementById('a_text')
-const b_text = document.getElementById('b_text')
-const c_text = document.getElementById('c_text')
+const questionEl = document.getElementById('question');
+const a_text = document.getElementById('a_text');
+const b_text = document.getElementById('b_text');
+const c_text = document.getElementById('c_text');
 
 let currentQuizz = 0;
-
+let score = 0;
 loadQuiz();
 
 function loadQuiz() {
     const currentQuizzData = quizzData[currentQuizz];
 
-    questionEl.innerHTML = currentQuizzData.question;
+    questionEl.innerText = currentQuizzData.question;
 
-    a_text.innerHTML = currentQuizzData.a;
-    b_text.innerHTML = currentQuizzData.b;
-    c_text.innerHTML = currentQuizzData.c;
+    a_text.innerText = currentQuizzData.a;
+    b_text.innerText = currentQuizzData.b;
+    c_text.innerText = currentQuizzData.c;
 
     currentQuestion++
-
 }
+
+function getSelected() {
+    const answerEls = document.querySelectorAll("answer")
+
+    let answer = undefined;
+
+    answerEls.forEach((answerEls) => {
+        if (answerEls.checked) {
+       answer = answerEls.id
+        }
+    });
+
+    return answer;
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    
+    if (answer) {
+        currentQuizz++
+        if (currentQuizz < quizzData.length) {
+            loadQuiz()
+        } else {
+            alert('You Finished!Get yourself an Orange Lemonade')
+        }
+    }
+})
